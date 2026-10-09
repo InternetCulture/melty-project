@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "mode": "installed",
+  "games": [
+    {
+      "slug": "gta-v-enhanced",
+      "role": "primary"
+    },
+    {
+      "slug": "counter-strike-2",
+      "role": "companion"
+    }
+  ],
+  "components": [
+    {
+      "id": "main",
+      "fileName": "CSGTA-*.zip",
+      "label": "CS:GTA",
+      "kind": "main",
+      "required": true
+    }
+  ],
+  "requirements": [
+    {
+      "kind": "loader",
+      "id": "ultimate-asi-loader"
+    }
+  ],
+  "mappings": [
+    {
+      "component": "main",
+      "from": "gta/",
+      "to": "{game}"
+    },
+    {
+      "component": "main",
+      "from": "tools/",
+      "to": "{localappdata}/CSGTA/bin"
+    }
+  ],
+  "setup": {
+    "label": "Counter-Strike 2 gun sounds",
+    "launch": {
+      "kind": "exe",
+      "path": "{localappdata}/CSGTA/bin/CsSoundImporter.exe",
+      "args": [
+        "--cs2",
+        "{game:counter-strike-2}",
+        "--out",
+        "{localappdata}/CSGTA"
+      ]
+    },
+    "done": {
+      "file": "{localappdata}/CSGTA/import.done"
+    }
+  },
+  "runtimeData": [
+    "{localappdata}/CSGTA"
+  ],
+  "notes": {
+    "firstLaunch": "The first start copies Counter-Strike 2's gun sounds from your own copy (about a minute). GTA V story mode only: CS:GTA switches itself off in GTA Online. F10 turns it on/off."
+  },
+  "launch": {
+    "kind": "game"
+  }
+}

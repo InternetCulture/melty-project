@@ -45,6 +45,18 @@ namespace CSGTA.Importer
 
             try
             {
+                return Run(cs2, outDir, force, log, Log);
+            }
+            finally
+            {
+                File.WriteAllText(Path.Combine(outDir, "import.done"), DateTime.UtcNow.ToString("o"));
+            }
+        }
+
+        private static int Run(string cs2, string outDir, bool force, StringBuilder log, Action<string> Log)
+        {
+            try
+            {
                 string vpk = Cs2Locator.FindPak(cs2, Log);
                 if (vpk == null)
                 {

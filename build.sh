@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
-# Builds the release zip: dist/CSGTA-<version>.zip, laid out relative to the GTA V folder.
+# Builds the release zip dist/CSGTA-<version>.zip:
+#   gta/CSGTA.asi, gta/CSGTA/...      -> GTA V Enhanced folder (loaded by Ultimate ASI Loader)
+#   tools/CsSoundImporter.exe         -> %LOCALAPPDATA%\CSGTA\bin (Melty runs it before the first start)
 set -euo pipefail
 cd "$(dirname "$0")"
 VERSION=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props)
-OUT=dist/stage
-rm -rf dist && mkdir -p "$OUT/scripts/CSGTA"
+rm -rf dist && mkdir -p dist
 
+./asi/build.sh test
 dotnet test tests/CSGTA.Tests -c Release --nologo
-dotnet build src/CSGTA -c Release --nologo
+./asi/build.sh
 dotnet publish src/CsSoundImporter -c Release -r win-x64 --self-contained true \
   -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true \
   -p:EnableCompressionInSingleFile=true -p:DebugType=none -o dist/importer --nologo
 
-cp src/CSGTA/bin/Release/net48/CSGTA.dll "$OUT/scripts/"
-cp src/CSGTA/bin/Release/net48/NAudio.dll "$OUT/scripts/"
-cp packaging/CSGTA.ini "$OUT/scripts/"
-cp dist/importer/CsSoundImporter.exe "$OUT/scripts/CSGTA/"
-cp packaging/THIRD-PARTY-NOTICES.txt "$OUT/scripts/CSGTA/"
-cp README.md "$OUT/scripts/CSGTA/README.md"
+OUT=dist/stage
+mkdir -p "$OUT/gta/CSGTA" "$OUT/tools"
+cp dist/asi/CSGTA.asi "$OUT/gta/"
+cp packaging/CSGTA.ini packaging/THIRD-PARTY-NOTICES.txt "$OUT/gta/CSGTA/"
+cp README.md "$OUT/gta/CSGTA/README.md"
+cp dist/importer/CsSoundImporter.exe "$OUT/tools/"
 
-(cd "$OUT" && find . -exec touch -d '2026-01-01 00:00:00' {} + && zip -X -r -9 "../CSGTA-$VERSION.zip" scripts >/dev/null)
+(cd "$OUT" && find . -exec touch -d '2026-01-01 00:00:00' {} + && zip -X -r -9 "../CSGTA-$VERSION.zip" gta tools >/dev/null)
 echo "dist/CSGTA-$VERSION.zip"

@@ -42,21 +42,21 @@ All of GTA V's story mode and open world, played in first person, with Counter-S
   - When you let go, your aim settles back.
 - **Counter-Strike 2 gun sounds.** Shots and reloads use Counter-Strike 2's own sounds, read from **your** Counter-Strike 2 install the first time you play. No Counter-Strike files ship with this mod. Where a GTA gun takes a suppressor, one is fitted so GTA's own shot doesn't drown out the Counter-Strike one. You can turn that off in the settings.
 
-Everything else in GTA V stays the same: missions, cars, the map and the police. This is single player only, because mods don't run in GTA Online.
+Everything else in GTA V stays the same: missions, cars, the map and the police. This is single player, story mode only: CS:GTA switches itself off whenever GTA Online is running. It never touches BattlEye.
 
 ## You need
 
-- **Grand Theft Auto V** for PC, story mode.
+- **Grand Theft Auto V Enhanced** for PC, story mode.
 - **Counter-Strike 2**, installed through Steam. It's free, and the mod takes its gun sounds from your copy.
-- **Script Hook V** and **ScriptHookVDotNet 3** in your GTA V folder. Melty installs these for you.
+- **Ultimate ASI Loader**, which loads the mod into GTA V. Melty installs it for you.
 
 ## Playing
 
 1. Start GTA V's story mode.
-2. The first time you play, the mod finds Counter-Strike 2 through Steam and copies its gun sounds to `%LOCALAPPDATA%\CSGTA`. A notification tells you when they're loaded.
+2. Before the first start, Melty runs the sound importer, which copies Counter-Strike 2's gun sounds from your copy to `%LOCALAPPDATA%\CSGTA`. A notification in game says how many guns have Counter-Strike sounds.
 3. Press **F10** to turn the whole mod on or off.
 
-All the settings are in `scripts/CSGTA.ini`:
+All the settings are in `CSGTA/CSGTA.ini` in your GTA V folder:
 
 - first person
 - movement
@@ -68,20 +68,23 @@ All the settings are in `scripts/CSGTA.ini`:
 
 ## Files
 
-| In your GTA V folder | What it is |
+| Where | What it is |
 |---|---|
-| `scripts/CSGTA.dll` | the mod |
-| `scripts/CSGTA.ini` | settings |
-| `scripts/NAudio.dll` | sound playback (NAudio, MIT) |
-| `scripts/CSGTA/CsSoundImporter.exe` | reads the gun sounds from your Counter-Strike 2 install |
+| `CSGTA.asi` in the GTA V folder | the mod, loaded by Ultimate ASI Loader |
+| `CSGTA/CSGTA.ini` in the GTA V folder | settings |
+| `%LOCALAPPDATA%\CSGTA\bin\CsSoundImporter.exe` | reads the gun sounds from your Counter-Strike 2 install |
+| `%LOCALAPPDATA%\CSGTA` | imported sounds and `CSGTA.log` |
 
 ## Building
 
-You need the .NET 10 SDK. Run `./build.sh`. It runs the tests, builds the script and the importer, and writes `dist/CSGTA-<version>.zip`.
+You need MinGW-w64 (`x86_64-w64-mingw32-g++-posix`) and the .NET 10 SDK. Run `./build.sh`. It runs the tests, builds the plugin and the importer, and writes `dist/CSGTA-<version>.zip`.
 
-- `src/Shared`: movement, spray, gun table and sound matching. This is plain C#, and the unit tests in `tests/` cover it.
-- `src/CSGTA`: the ScriptHookVDotNet 3 script that runs inside GTA V (.NET Framework 4.8).
-- `src/CsSoundImporter`: reads Counter-Strike 2's `pak01_dir.vpk` with ValveResourceFormat and writes the gun sounds as WAV files.
+- `asi/src`: the plugin (C++17).
+  - `cs_logic.*` holds the movement, spray and gun rules. The tests in `asi/tests` cover it.
+  - `mod.cpp` runs every frame.
+  - `audio.cpp` plays the sounds.
+  - `game_bridge_enhanced.cpp` is the connection to GTA V Enhanced's native functions.
+- `src/CsSoundImporter` and `src/Shared`: the C# tool that reads Counter-Strike 2's `pak01_dir.vpk` with ValveResourceFormat and writes the gun sounds as WAV files. The tests in `tests/` cover its sound matching.
 
 You can run the importer by hand:
 

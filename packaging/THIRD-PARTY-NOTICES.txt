@@ -1,9 +1,10 @@
 CS:GTA includes the following third-party software. Thank you to their authors.
 
-In scripts/ (GTA V script):
-  NAudio 1.10.0 - Mark Heath & Contributors - MIT License - https://github.com/naudio/NAudio
+In CSGTA.asi (the GTA V plugin):
+  GCC runtime libraries (libstdc++, libgcc) - Free Software Foundation - GPLv3 with the GCC Runtime Library Exception
+  MinGW-w64 runtime and winpthreads - MinGW-w64 project - ZPL / MIT-style licenses - https://www.mingw-w64.org
 
-In scripts/CSGTA/CsSoundImporter.exe (reads sounds from your Counter-Strike 2 install):
+In CsSoundImporter.exe (reads sounds from your Counter-Strike 2 install):
   ValveResourceFormat 20.0 - ValveResourceFormat Contributors (Source 2 Viewer) - MIT License - https://github.com/ValveResourceFormat/ValveResourceFormat
   ValvePak 5.0 - ValvePak Contributors - MIT License - https://github.com/ValveResourceFormat/ValvePak
   ValveKeyValue 0.70 - ValveKeyValue Contributors - MIT License - https://github.com/ValveResourceFormat/ValveKeyValue
@@ -19,9 +20,8 @@ In scripts/CSGTA/CsSoundImporter.exe (reads sounds from your Counter-Strike 2 in
   Blake3 3.0.2 - Alexandre Mutel - BSD 2-Clause License - https://github.com/xoofx/Blake3.NET
   .NET runtime and System.IO.Hashing - Microsoft - MIT License - https://github.com/dotnet/runtime
 
-Required, not included (installed separately into GTA V):
-  Script Hook V - Alexander Blade
-  ScriptHookVDotNet 3 - crosire & contributors - zlib License
+Installed by Melty, not included:
+  Ultimate ASI Loader - ThirteenAG - MIT License - https://github.com/ThirteenAG/Ultimate-ASI-Loader
 
 No game content is included. Gun sounds are read from the player's own Counter-Strike 2
 install on their own PC; GTA V content stays in the player's own GTA V.
