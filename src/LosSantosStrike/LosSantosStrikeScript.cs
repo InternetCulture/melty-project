@@ -52,6 +52,7 @@ namespace LosSantosStrike
         private readonly List<KeyValuePair<uint, uint>> _addedSuppressors = new List<KeyValuePair<uint, uint>>();
 
         private volatile string _notice;
+        private volatile bool _soundsChanged;
         private static readonly uint Unarmed = Joaat.Hash("WEAPON_UNARMED");
         private static readonly uint[] Suppressors =
         {
@@ -124,6 +125,7 @@ namespace LosSantosStrike
 
                 int guns = _sounds.Load(Path.Combine(_dataDir, "sounds"), Log);
                 Log("Loaded Counter-Strike 2 sounds for " + guns + " guns.");
+                _soundsChanged = true;
                 string err = Path.Combine(_dataDir, "import.err");
                 if (guns > 0)
                     _notice = "~g~" + ModName + "~s~: Counter-Strike 2 sounds loaded for " + guns + " guns.";
@@ -148,6 +150,7 @@ namespace LosSantosStrike
 
             var notice = _notice;
             if (notice != null) { _notice = null; GTA.UI.Notification.Show(notice); }
+            if (_soundsChanged) { _soundsChanged = false; _weaponHash = 0; } // fit suppressors now that sounds exist
             if (!_enabled) return;
 
             Ped ped = Game.Player.Character;
@@ -433,6 +436,7 @@ namespace LosSantosStrike
                 RemoveAddedSuppressors();
                 Ped ped = Game.Player.Character;
                 if (ped != null && ped.Exists()) Function.Call(N.SET_PED_MOVE_RATE_OVERRIDE, ped, 1f);
+                Function.Call(N.SET_CINEMATIC_BUTTON_ACTIVE, true);
                 _controlling = false;
             }
             _weaponHash = 0;
@@ -445,6 +449,7 @@ namespace LosSantosStrike
             {
                 ResetDamage();
                 RemoveAddedSuppressors();
+                Function.Call(N.SET_CINEMATIC_BUTTON_ACTIVE, true);
             }
             catch { }
             _sounds.Dispose();
