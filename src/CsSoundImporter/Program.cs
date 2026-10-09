@@ -8,11 +8,11 @@ using SteamDatabase.ValvePak;
 using ValveResourceFormat;
 using ValveResourceFormat.ResourceTypes;
 
-namespace LosSantosStrike.Importer
+namespace CSGTA.Importer
 {
     /// <summary>
     /// Copies Counter-Strike 2's gun sounds out of the player's own CS2 install into
-    /// %LOCALAPPDATA%\LosSantosStrike\sounds so the GTA V script can play them.
+    /// %LOCALAPPDATA%\CSGTA\sounds so the GTA V script can play them.
     /// Nothing from Counter-Strike 2 ships with the mod.
     /// </summary>
     public static class Program
@@ -80,7 +80,7 @@ namespace LosSantosStrike.Importer
         }
 
         public static string DefaultOutDir() =>
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LosSantosStrike");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSGTA");
 
         private static string Stamp(string vpk)
         {

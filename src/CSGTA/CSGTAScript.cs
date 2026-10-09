@@ -8,17 +8,17 @@ using GTA;
 using GTA.Math;
 using GTA.Native;
 
-namespace LosSantosStrike
+namespace CSGTA
 {
     /// <summary>
     /// GTA V story mode, always in first person, with Counter-Strike 2 movement, guns, spray
     /// recoil and (from the player's own CS2 install) gun sounds.
     /// </summary>
-    public class LosSantosStrikeScript : Script
+    public class CSGTAScript : Script
     {
-        private const string ModName = "Los Santos Strike";
+        private const string ModName = "CS:GTA";
 
-        // Settings (LosSantosStrike.ini next to the script)
+        // Settings (CSGTA.ini next to the script)
         private bool _forceFirstPerson, _csMovement, _shiftToWalk, _csGuns, _csRecoil, _csSounds, _quietGtaGunfire;
         private float _volume;
         private Keys _toggleKey;
@@ -28,7 +28,7 @@ namespace LosSantosStrike
         private readonly SprayRecoil _recoil = new SprayRecoil();
         private readonly SoundEngine _sounds = new SoundEngine();
         private readonly Random _rng = new Random();
-        private readonly string _dataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LosSantosStrike");
+        private readonly string _dataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSGTA");
         private string _logPath;
 
         private bool _enabled = true;
@@ -38,6 +38,8 @@ namespace LosSantosStrike
         private V2 _vel;
         private bool _controlling;
         private float _speed;
+        private bool _wasAirborne;
+        private float _landedAt = -100f;
 
         // guns
         private uint _weaponHash;
@@ -61,9 +63,9 @@ namespace LosSantosStrike
             Joaat.Hash("COMPONENT_AT_SR_SUPP"),
         };
 
-        public LosSantosStrikeScript()
+        public CSGTAScript()
         {
-            _logPath = Path.Combine(BaseDirectory ?? ".", "LosSantosStrike.log");
+            _logPath = Path.Combine(BaseDirectory ?? ".", "CSGTA.log");
             LoadSettings();
             Interval = 0;
             Tick += OnTick;
@@ -100,7 +102,7 @@ namespace LosSantosStrike
         {
             try
             {
-                string exe = Path.Combine(BaseDirectory, "LosSantosStrike", "CsSoundImporter.exe");
+                string exe = Path.Combine(BaseDirectory, "CSGTA", "CsSoundImporter.exe");
                 if (File.Exists(exe))
                 {
                     string args = "--auto";
@@ -235,11 +237,16 @@ namespace LosSantosStrike
             Vector3 actual = ped.Velocity;
             var actualH = new V2(actual.X, actual.Y);
             if (!_controlling) { _vel = actualH; _controlling = true; }
-            else if (_vel.Length > 1f && actualH.Length < _vel.Length * 0.5f) _vel = actualH; // ran into something
+            else if (_vel.Length > 1f && actualH.Length < _vel.Length * 0.5f && _time - _landedAt > 0.3f) _vel = actualH; // ran into something
 
             bool onGround = !Function.Call<bool>(N.IS_PED_JUMPING, ped)
                          && !Function.Call<bool>(N.IS_PED_FALLING, ped)
                          && !Function.Call<bool>(N.IS_ENTITY_IN_AIR, ped);
+
+            if (onGround && _wasAirborne) _landedAt = _time;
+            _wasAirborne = !onGround;
+            // Bunny hop: jumping again right as you land skips friction, so air-strafed speed carries on.
+            bool bhop = onGround && _time - _landedAt < CsMovement.BunnyHopWindow && Game.IsControlPressed(GTA.Control.Jump);
 
             float right = Game.GetControlValueNormalized(GTA.Control.MoveLeftRight);
             float forward = -Game.GetControlValueNormalized(GTA.Control.MoveUpDown);
@@ -259,7 +266,7 @@ namespace LosSantosStrike
             float wishSpeed = max * input * (duck ? CsMovement.DuckFraction : walk ? CsMovement.WalkFraction : 1f);
             V2 wishDir = CsMovement.WishDirection(right, forward, GameplayCamera.Rotation.Z);
 
-            _vel = _move.Step(_vel, wishDir, wishSpeed, onGround, dt);
+            _vel = _move.Step(_vel, wishDir, wishSpeed, onGround, dt, bhop);
             _speed = _vel.Length;
 
             if (input < 0.05f && _speed < 0.05f && onGround)

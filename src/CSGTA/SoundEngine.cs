@@ -5,7 +5,7 @@ using System.Linq;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 
-namespace LosSantosStrike
+namespace CSGTA
 {
     /// <summary>Plays the Counter-Strike 2 gun sounds imported from the player's own CS2 install.</summary>
     internal sealed class SoundEngine : IDisposable
@@ -39,7 +39,7 @@ namespace LosSantosStrike
             _out.Play();
         }
 
-        /// <summary>Loads %LOCALAPPDATA%\LosSantosStrike\sounds\&lt;gun&gt;\shot_N.wav, clipout.wav, clipin.wav.</summary>
+        /// <summary>Loads %LOCALAPPDATA%\CSGTA\sounds\&lt;gun&gt;\shot_N.wav, clipout.wav, clipin.wav.</summary>
         public int Load(string soundsDir, Action<string> log)
         {
             var banks = new Dictionary<string, Bank>();

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace LosSantosStrike
+namespace CSGTA
 {
     /// <summary>
     /// Counter-Strike style spray patterns: where each bullet of a held spray lands, as cumulative

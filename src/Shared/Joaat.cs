@@ -1,4 +1,4 @@
-namespace LosSantosStrike
+namespace CSGTA
 {
     /// <summary>Jenkins one-at-a-time hash, the hash GTA V uses for weapon and component names.</summary>
     public static class Joaat

@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
-    <AssemblyName>LosSantosStrike</AssemblyName>
-    <RootNamespace>LosSantosStrike</RootNamespace>
+    <AssemblyName>CSGTA</AssemblyName>
+    <RootNamespace>CSGTA</RootNamespace>
     <PlatformTarget>x64</PlatformTarget>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>

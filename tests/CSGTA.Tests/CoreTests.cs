@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using LosSantosStrike;
+using CSGTA;
 using Xunit;
 
 public class JoaatTests
@@ -106,6 +106,27 @@ public class MovementTests
         for (int i = 0; i < 30; i++) v = m.Step(v, new V2(1, 0), Ms(250), false, Dt);
         Assert.True(v.X > 0.3f, "air strafe should bend the path");
         Assert.True(v.Y >= Ms(250) * 0.999f, "no air friction");
+    }
+
+    [Fact]
+    public void BunnyHoppingHasNoSpeedCap()
+    {
+        var m = new CsMovement();
+        float run = Ms(250);
+        var v = new V2(0, run);
+        // Strafe-jump: air strafe each hop, land and jump again inside the window (no friction).
+        for (int hop = 0; hop < 10; hop++)
+        {
+            for (int i = 0; i < 40; i++)
+            {
+                // Optimal strafe: keep the wish direction just under the air cap's worth off the velocity.
+                double off = Math.Acos(Math.Min(1.0, (m.AirWishCap * 0.5) / v.Length));
+                double a = Math.Atan2(v.Y, v.X) + off * (hop % 2 == 0 ? -1 : 1);
+                v = m.Step(v, new V2((float)Math.Cos(a), (float)Math.Sin(a)), run, false, Dt);
+            }
+            v = m.Step(v, new V2(0, 0), 0, true, Dt, skipFriction: true);
+        }
+        Assert.True(v.Length > run * 1.3f, $"speed {v.Length} should exceed run speed {run}");
     }
 
     [Fact]

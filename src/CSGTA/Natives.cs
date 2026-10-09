@@ -1,6 +1,6 @@
 using GTA.Native;
 
-namespace LosSantosStrike
+namespace CSGTA
 {
     /// <summary>Native function hashes this script calls (names from the GTA V native reference).</summary>
     internal static class N

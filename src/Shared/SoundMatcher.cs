@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace LosSantosStrike
+namespace CSGTA
 {
     /// <summary>Picks a gun's firing and reload sounds out of Counter-Strike 2's sound file list.</summary>
     public static class SoundMatcher

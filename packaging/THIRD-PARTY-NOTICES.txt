@@ -1,9 +1,9 @@
-Los Santos Strike includes the following third-party software. Thank you to their authors.
+CS:GTA includes the following third-party software. Thank you to their authors.
 
 In scripts/ (GTA V script):
   NAudio 1.10.0 - Mark Heath & Contributors - MIT License - https://github.com/naudio/NAudio
 
-In scripts/LosSantosStrike/CsSoundImporter.exe (reads sounds from your Counter-Strike 2 install):
+In scripts/CSGTA/CsSoundImporter.exe (reads sounds from your Counter-Strike 2 install):
   ValveResourceFormat 20.0 - ValveResourceFormat Contributors (Source 2 Viewer) - MIT License - https://github.com/ValveResourceFormat/ValveResourceFormat
   ValvePak 5.0 - ValvePak Contributors - MIT License - https://github.com/ValveResourceFormat/ValvePak
   ValveKeyValue 0.70 - ValveKeyValue Contributors - MIT License - https://github.com/ValveResourceFormat/ValveKeyValue

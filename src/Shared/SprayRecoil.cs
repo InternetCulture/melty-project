@@ -1,6 +1,6 @@
 using System;
 
-namespace LosSantosStrike
+namespace CSGTA
 {
     /// <summary>
     /// Tracks a spray: which bullet of the pattern comes next, how far the aim has been pushed,

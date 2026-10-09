@@ -1,6 +1,6 @@
 using System;
 
-namespace LosSantosStrike
+namespace CSGTA
 {
     public struct V2
     {
@@ -29,13 +29,20 @@ namespace LosSantosStrike
         public const float DuckFraction = 0.34f;   // crouched
         public const float AccurateFraction = 0.34f; // at or below this share of max speed shots stay accurate
 
-        /// <summary>Advance one frame. wishDir is a unit vector or zero; speeds in m/s.</summary>
-        public V2 Step(V2 velocity, V2 wishDir, float wishSpeed, bool onGround, float dt)
+        /// <summary>Seconds after landing during which a held jump skips ground friction (bunny hopping).</summary>
+        public const float BunnyHopWindow = 0.1f;
+
+        /// <summary>
+        /// Advance one frame. wishDir is a unit vector or zero; speeds in m/s. There is no bunny-hop
+        /// speed cap: air strafing can build speed past running speed, and skipFriction (jumping again
+        /// right on landing) keeps it.
+        /// </summary>
+        public V2 Step(V2 velocity, V2 wishDir, float wishSpeed, bool onGround, float dt, bool skipFriction = false)
         {
             if (dt <= 0f) return velocity;
             if (onGround)
             {
-                velocity = ApplyFriction(velocity, dt);
+                if (!skipFriction) velocity = ApplyFriction(velocity, dt);
                 return Accel(velocity, wishDir, wishSpeed, wishSpeed, Accelerate, dt);
             }
             float capped = Math.Min(wishSpeed, AirWishCap);

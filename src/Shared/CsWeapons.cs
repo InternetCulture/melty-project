@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 
-namespace LosSantosStrike
+namespace CSGTA
 {
     public enum CsWeaponClass { Pistol, Smg, Rifle, Sniper, Shotgun, MachineGun }
 
     /// <summary>A Counter-Strike 2 gun and the GTA V gun that carries it.</summary>
     public sealed class CsWeapon
     {
-        public string Id;            // sound folder id under %LOCALAPPDATA%\LosSantosStrike\sounds
+        public string Id;            // sound folder id under %LOCALAPPDATA%\CSGTA\sounds
         public string Name;          // Counter-Strike name shown to the player
         public string GtaWeapon;     // GTA V weapon name, e.g. WEAPON_ASSAULTRIFLE
         public CsWeaponClass Class;
