@@ -1,0 +1,61 @@
+Los Santos Strike includes the following third-party software. Thank you to their authors.
+
+In scripts/ (GTA V script):
+  NAudio 1.10.0 - Mark Heath & Contributors - MIT License - https://github.com/naudio/NAudio
+
+In scripts/LosSantosStrike/CsSoundImporter.exe (reads sounds from your Counter-Strike 2 install):
+  ValveResourceFormat 20.0 - ValveResourceFormat Contributors (Source 2 Viewer) - MIT License - https://github.com/ValveResourceFormat/ValveResourceFormat
+  ValvePak 5.0 - ValvePak Contributors - MIT License - https://github.com/ValveResourceFormat/ValvePak
+  ValveKeyValue 0.70 - ValveKeyValue Contributors - MIT License - https://github.com/ValveResourceFormat/ValveKeyValue
+  KeyValues2 / Datamodel.NET 0.8 - Tom Edwards and contributors - MIT License - https://github.com/kristiker/Datamodel.NET
+  NLayer 1.16 - Mark Heath, Andrew Ward - MIT License - https://github.com/naudio/NLayer
+  SkiaSharp 4.151 - Microsoft - MIT License - https://github.com/mono/SkiaSharp
+  SharpGLTF 1.0.6 - Vicente Penades - MIT License - https://github.com/vpenades/SharpGLTF
+  K4os.Compression.LZ4 1.3.8 - Milosz Krajewski - MIT License - https://github.com/MiloszKrajewski/K4os.Compression.LZ4
+  ZstdSharp.Port 0.8.8 - Oleg Stepanischev - MIT License - https://github.com/oleg-st/ZstdSharp
+  TinyEXR.NET 1.1 - ksgfk - MIT License - https://github.com/ksgfk/TinyEXR.NET
+  TinyBCSharp 0.1.2 - JanDK - MIT License
+  Vortice.SpirvCross 1.5.4 - Amer Koleci - MIT License - https://github.com/amerkoleci/Vortice.SpirvCross
+  Blake3 3.0.2 - Alexandre Mutel - BSD 2-Clause License - https://github.com/xoofx/Blake3.NET
+  .NET runtime and System.IO.Hashing - Microsoft - MIT License - https://github.com/dotnet/runtime
+
+Required, not included (installed separately into GTA V):
+  Script Hook V - Alexander Blade
+  ScriptHookVDotNet 3 - crosire & contributors - zlib License
+
+No game content is included. Gun sounds are read from the player's own Counter-Strike 2
+install on their own PC; GTA V content stays in the player's own GTA V.
+
+----------------------------------------------------------------------------------------------
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+and associated documentation files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+----------------------------------------------------------------------------------------------
+BSD 2-Clause License (Blake3.NET)
+
+Redistribution and use in source and binary forms, with or without modification, are permitted
+provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this list of
+   conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of
+   conditions and the following disclaimer in the documentation and/or other materials provided
+   with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
+IMPLIED WARRANTIES ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES ARISING
+IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
